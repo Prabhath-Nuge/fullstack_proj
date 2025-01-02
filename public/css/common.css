@@ -1,0 +1,28 @@
+*{
+font-family: 'poppins', sans-serif; 
+}
+
+.h-font{
+font-family: 'merienda', cursive;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+input[type=number] 
+{
+-moz-appearance: textfield;
+}
+
+.custom-bg{
+background-color: #2ec1ac;
+border: 1 px solid  #2ec1ac;
+}
+
+.custom-bg:hover{
+background-color: #279e8c;
+border-color: #279e8c;
+}
