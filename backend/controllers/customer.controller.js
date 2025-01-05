@@ -18,7 +18,6 @@ export const logingCustomer = async (req, res) => {
         if (cus) {
             req.session.cus = cus;
             return res.render("hotels.ejs", { success: true, message: "Logged in Successfully!!" });
-            // return res.render("index.ejs", { success: true, message: "Logged in Successfully!!" });
         } else {
             return res.render("index.ejs", { success: false, message: "No user!!" });
         }
@@ -67,6 +66,6 @@ export const logoutCustomer = (req, res) => {
             console.error("Error destroying session:", err);
             return res.redirect("/");
         }
-        res.redirect("/"); // Redirect to the home page or login page
+        res.redirect("/");
     });
 };
