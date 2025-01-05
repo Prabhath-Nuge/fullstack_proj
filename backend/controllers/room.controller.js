@@ -81,3 +81,18 @@ export const updateRoom = async (req,res) => {
         return res.status(500).json({ success: false, message: `An error occurred: ${error.message}` });
     }
 }
+
+export const getOneRoom = async (req,res) => {
+    const roomId = req.params.id;
+    const room = await Room.findById(roomId);    
+
+    try {
+        if(room){
+            res.status(200).send({success:true,message:"Room available",room:room});
+        }else{
+            res.status(404).send({success:false,message:"Room not found"});
+        }
+    } catch (error) {
+        res.status(502).send({success:false,message:`Error occured ${error.message}`});
+    }
+};
