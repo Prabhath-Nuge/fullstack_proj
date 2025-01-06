@@ -1,0 +1,33 @@
+<%- include("header.ejs") %>
+<div class="my-5 px-4">
+    <h2 class="text-center fw-bold h-font">OUR FACILITIES</h2>
+    <div class="h-line bg-dark"></div>
+    <p class="text-center mt-3">
+        "Experience unparalleled comfort and exceptional services, 
+        crafted to make every moment <br>of your stay truly unforgettable. 
+        Discover the perfect blend of luxury and <br>convenience in an ambiance designed to delight."
+    </p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <% data.forEach((service) => { %>
+        <div class="col-lg-4 col-md-6 mb-5 px-4">
+            <div class="bg-white rounded shadow p-4 border-top border-4 border-dark">
+                <div class="d-flex align-items-center mb-2">
+                    <img src="<%= service.image %>" width="40px" alt="Service Image">
+                    <h5 class="m-0 ms-3"><%= service.name %></h5>
+                </div>
+                <p>Price: Rs. <%= service.price %> /=</p>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>
+<p class="text-center fw-bold fs-5 add-ons mt-4">
+    <i class="bi bi-plus-circle me-2 fs-4"></i>
+    Enhance your stay by adding additional amenities to your room.<br>Personalize your experience with options that ensure your comfort and convenience.  <br>
+    <span class="text-decoration-underline">Simply select these add-ons</span> during the booking process for a truly tailored stay.
+  </p>
+
+<%- include("footer.ejs") %>
