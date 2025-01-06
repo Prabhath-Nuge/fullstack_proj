@@ -26,3 +26,9 @@ border: 1 px solid  #2ec1ac;
 background-color: #279e8c;
 border-color: #279e8c;
 }
+
+.h-line{
+    width: 150px;
+    margin: 0 auto;
+    height: 1.7px;
+}
