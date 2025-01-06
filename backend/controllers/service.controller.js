@@ -27,8 +27,8 @@ export const getAllServices = async (req,res)=>{
     if(!services){
         return res.status(404).send({success:false,message:"No services available"});
     }
-
-    res.status(200).send({success:true,message:"Services found",data:services});
+    res.status(200).render("service.ejs",{data:services});
+    // res.status(200).send({success:true,message:"Services found",data:services});
     } catch (error) {
         res.status(500).send({success:false,message:`Error : ${error.message}`});
     }
