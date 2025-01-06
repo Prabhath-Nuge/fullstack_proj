@@ -2,7 +2,7 @@ import Customer from "../models/customer.model.js";
 
 export const loadIndexPage = (req, res) => {
     res.render("index.ejs", { name: "bitch" });
-}
+};
 
 export const logingCustomer = async (req, res) => {
     const email = req.body.email;
@@ -12,12 +12,14 @@ export const logingCustomer = async (req, res) => {
     }
     try {
         if(req.session.cus){
-            return res.render("hotels.ejs", { success: true, message: "You are allready logged in!" });
+            return res.redirect("/");
+            // return res.render("room.ejs", { success: true, message: "You are allready logged in!" });
         }else{
             const cus = await Customer.findOne({ email: email, password: password });
         if (cus) {
             req.session.cus = cus;
-            return res.render("hotels.ejs", { success: true, message: "Logged in Successfully!!" });
+            return res.redirect("/");
+            // return res.render("room.ejs", { success: true, message: "Logged in Successfully!!" });
         } else {
             return res.render("index.ejs", { success: false, message: "No user!!" });
         }
@@ -26,7 +28,7 @@ export const logingCustomer = async (req, res) => {
         return res.render("index.ejs", { success: false, message: `Error : ${error}` });
     }
 
-}
+};
 
 export const registerCustomer = async (req, res) => {
     const { name, email, pnumber, address, dob, password } = req.body;
@@ -58,7 +60,7 @@ export const registerCustomer = async (req, res) => {
         console.error("Error during registration:", error);
         res.status(500).send("An error occurred. Please try again later.");
     }
-}
+};
 
 export const logoutCustomer = (req, res) => {
     req.session.destroy((err) => {

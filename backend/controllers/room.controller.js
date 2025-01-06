@@ -2,7 +2,7 @@ import Room from "../models/room.model.js";
 
 export const getRooms = async (req,res) => {
     const rooms = await Room.find();
-    return res.send(rooms);
+    return res.render("room.ejs",{data:rooms});
 };
 
 export const addRoom = async (req,res) => {

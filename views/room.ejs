@@ -1,11 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-</head>
-<body>
-    <h1>Hotels</h1> 
-</body>
-</html>
+<%- include("header.ejs")%>
+    <!-- Our Rooms -->
+    <div class="my-5 px-4">
+        <h2 class="text-center fw-bold h-font">OUR ROOMS</h2>
+        <div class="h-line bg-dark"></div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <% data.forEach((room)=> { %>
+                <div class="col-lg-4 col-md-6 my-3">
+                    <div class="card border-0 shadow" style="max-width: 350px; margin:auto;">
+                        <img src="<%= room.image%>" class="card-img-top">
+
+                        <div class="card-body">
+                            <h5>
+                                <%= room.roomType %>
+                            </h5>
+                            <h6>
+                                <%= room.price %>
+                            </h6>
+                            <div class="features mb-4">
+                            </div>
+                            <div class="facilities mb-4">
+                                <h6 class="mb-1">
+                                    Bed Type
+                                </h6>
+                                <span class="badge rounded-pill bg-light bg-light text-dark  text-wrap">
+                                    <%= room.bedType %>
+                                </span>
+
+                            </div>
+                            <div class="rating mb-4">
+                                <h6 class="mb-1">
+                                    Status
+                                </h6>
+                                <span class="badge rounded-pill bg-light bg-light text-dark  text-wrap">
+                                    <% if (room.status) { %>
+                                        Available
+                                        <% }else{ %>
+                                            Unavailable
+                                            <% } %>
+                                </span>
+
+                            </div>
+                            <div class="d-flex justify-content-evenly mb-2">
+                                <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%})%>
+
+        </div>
+    </div>
+
+    <%- include("footer.ejs")%>
