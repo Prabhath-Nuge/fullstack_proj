@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const customerSchema = mongoose.Schema({
     name:{type: String,required: true},

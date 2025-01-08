@@ -7,6 +7,8 @@ import { sessionMiddleware } from "./middelware/sessionMiddleware.js";
 import customerRoutes from "./routes/customer.router.js";
 import roomRouter from "./routes/room.router.js";
 import serviceRouter from "./routes/service.router.js";
+import publicRouter from "./routes/public.router.js";
+import bookingRouter from "./routes/booking.router.js";
 
 dotenv.config();
 
@@ -32,6 +34,8 @@ app.use(express.static("public"));
 app.use("/", customerRoutes);
 app.use("/rooms", roomRouter);
 app.use("/services", serviceRouter);
+app.use("/book", bookingRouter);
+app.use("/", publicRouter);
 
 
 

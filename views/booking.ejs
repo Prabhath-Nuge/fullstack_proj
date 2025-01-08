@@ -1,0 +1,62 @@
+<%- include("header.ejs") %>
+    <div>
+
+
+        <div class="container availiability-form">
+            <div class="text-center">
+                <img src="/<%= data.room.image %>" class="img-fluid" style="height: auto; width: 1300px;">
+            </div>
+            <div class="col-lg-12 bg-white shadow p-4 rounded">
+                <form method="post" action="/book/confirms">
+                    <div class="col-lg-3 mb-3">
+                        <label class="form-label" style="font-weight: 500;">Room Type : <%= data.room.roomType %>
+                        </label>
+                    </div>
+                    <div class="col-lg-3 mb-3">
+                        <label class="form-label" style="font-weight: 500;">Bed Type : <%= data.room.bedType %></label>
+                    </div>
+                    <div class="col-lg-3 mb-3">
+                        <label class="form-label" style="font-weight: 500;">Price : <%= data.room.price %>/=</label>
+                    </div><br>
+                    <div class="col-lg-3 mb-3  ">
+                        <label class="form-label" style="font-weight: 500;">Select Services you need</label>
+                    </div>
+                    <% data.services.forEach((service)=> { %>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="<%= service._id %>" id="<%= service._id %>" name="selectedServices">
+
+                            <%= service.name %> <img src="/<%= service.image %>" width="30px"
+                                    alt="<%= service.name %>"><br>
+                                <%= service.price %>/= <br>
+                        </div>
+                        <% })%>
+                            <br>
+                            <div class="col-lg-3 mb-3">
+                                <label class="form-label" style="font-weight: 500;">Check-in-date</label>
+                                <input type="date" class="form-control shadow-none" name="checkin">
+                            </div>
+                            <div class="col-lg-3 mb-3">
+                                <label class="form-label" style="font-weight: 500;">Check-out-date</label>
+                                <input type="date" class="form-control shadow-none" name="checkout">
+                            </div>
+                            <label class="form-label" style="font-weight: 500;">All <b>payments</b> can be processed at
+                                the
+                                front desk upon check-in or check-out for your convenience.<br>you may add any
+                                additional
+                                services to your booking at the front desk.availiable at any time during during your
+                                stay.</label>
+                                <input type="hidden" name="roomId" value="<%= data.room._id %>">
+                            <div>
+                                <button type="submit" class="btn text-white shadow-none"
+                                    style="background-color: #0ba847;">Book Now</button>
+
+                            </div>
+                </form>
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <%- include("footer.ejs") %>

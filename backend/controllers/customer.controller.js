@@ -1,4 +1,5 @@
 import Customer from "../models/customer.model.js";
+import Room from "../models/room.model.js";
 
 export const loadIndexPage = (req, res) => {
     res.render("index.ejs", { name: "bitch" });
@@ -12,14 +13,15 @@ export const logingCustomer = async (req, res) => {
     }
     try {
         if(req.session.cus){
-            return res.redirect("/");
-            // return res.render("room.ejs", { success: true, message: "You are allready logged in!" });
+            // return res.redirect("/");
+            return res.render("room.ejs", { success: true, message: "You are allready logged in!" });
         }else{
             const cus = await Customer.findOne({ email: email, password: password });
         if (cus) {
             req.session.cus = cus;
-            return res.redirect("/");
-            // return res.render("room.ejs", { success: true, message: "Logged in Successfully!!" });
+            const rooms = await Room.find();
+            // return res.redirect("/");
+            return res.render("room.ejs", { success: true, message: "Logged in Successfully!!" ,data:rooms});
         } else {
             return res.render("index.ejs", { success: false, message: "No user!!" });
         }

@@ -1,0 +1,54 @@
+<%- include("header.ejs") %>
+<div>
+    <div class="container availiability-form">
+        <div class="text-center mb-4">
+            <img src="/<%= data.roomId?.image || 'default.jpg' %>" class="img-fluid rounded" style="height: auto; width: 100%;" alt="Room Image">
+        </div>
+        <div class="col-lg-12 bg-white shadow p-4 rounded">
+            <form method="post" action="/book/edit/<%= data._id %>">
+                <div class="mb-3">
+                    <label class="form-label" style="font-weight: 500;">Room Type:</label>
+                    <span><%= data.roomId?.roomType || 'N/A' %></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-weight: 500;">Bed Type:</label>
+                    <span><%= data.roomId?.bedType || 'N/A' %></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-weight: 500;">Price:</label>
+                    <span><%= data.roomId?.price || '0' %> /=</span>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label class="form-label" style="font-weight: 500;">Selected Services:</label>
+                    <% if (data.services && data.services.length > 0) { %>
+                        <% data.services.forEach(service => { %>
+                            <div class="mb-2">
+                                <%= service.name || 'Service' %> 
+                                <img src="/<%= service.image || 'default-service.jpg' %>" width="30px" alt="<%= service.name || 'Service Image' %>">
+                                (<%= service.price || '0' %> /=)
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p>No additional services available.</p>
+                    <% } %>
+                    <b>You can add more services or remove with the help of front desk</b>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label class="form-label" style="font-weight: 500;">Check-in Date</label>
+                    <input type="date" class="form-control shadow-none" name="checkin" value="<%= data.checkin%>" min="<%= new Date().toISOString().split('T')[0] %>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-weight: 500;">Check-out Date</label>
+                    <input type="date" class="form-control shadow-none" name="checkout" value="<%= data.checkout%>" required min="<%= new Date().toISOString().split('T')[0] %>">
+                </div>
+                <input type="hidden" name="roomId" value="<%= data.roomId?._id || '' %>">
+                <div>
+                    <button type="submit" class="btn text-white shadow-none" style="background-color: #0ba847;">Update Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include("footer.ejs") %>
