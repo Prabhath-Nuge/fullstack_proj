@@ -10,7 +10,7 @@
             <% data.forEach((room)=> { %>
                 <div class="col-lg-4 col-md-6 my-3">
                     <div class="card border-0 shadow" style="max-width: 350px; margin:auto;">
-                        <img src="<%= room.image%>" class="card-img-top">
+                        <img src="/<%= room.image%>" class="card-img-top">
 
                         <div class="card-body">
                             <h5>
@@ -41,10 +41,10 @@
                                             Unavailable
                                             <% } %>
                                 </span>
-
                             </div>
                             <div class="d-flex justify-content-evenly mb-2">
-                                <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
+                                <a href="/book/<%= room._id %>" class="btn btn-sm custom-bg shadow-none text-white" style="background-color: #0ba847;">Book
+                                    Now</a>
                             </div>
                         </div>
                     </div>
