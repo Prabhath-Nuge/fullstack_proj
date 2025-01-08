@@ -26,7 +26,6 @@ export const addRoom = async (req,res) => {
         });
     
         await newRoom.save();
-        console.log("New Room Registered :"+newRoom);
         res.render("room.ejs", {success:true, message:"Added room successfully"});
     } catch (error) {
         console.log(error);
