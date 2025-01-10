@@ -9,6 +9,7 @@ import roomRouter from "./routes/room.router.js";
 import serviceRouter from "./routes/service.router.js";
 import publicRouter from "./routes/public.router.js";
 import bookingRouter from "./routes/booking.router.js";
+import adminRouter from "./routes/admin.router.js";
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use("/rooms", roomRouter);
 app.use("/services", serviceRouter);
 app.use("/book", bookingRouter);
 app.use("/", publicRouter);
+app.use("/admin", adminRouter);
 
 
 
