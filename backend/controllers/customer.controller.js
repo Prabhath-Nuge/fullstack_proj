@@ -12,19 +12,25 @@ export const logingCustomer = async (req, res) => {
         return res.render("index.ejs", { success: false, message: "Enter email and password!!" });
     }
     try {
-        if(req.session.cus){
-            // return res.redirect("/");
-            return res.render("room.ejs", { success: true, message: "You are allready logged in!" });
-        }else{
-            const cus = await Customer.findOne({ email: email, password: password });
-        if (cus) {
-            req.session.cus = cus;
-            const rooms = await Room.find();
-            // return res.redirect("/");
-            return res.render("room.ejs", { success: true, message: "Logged in Successfully!!" ,data:rooms});
+        if (req.session.cus) {
+            if(req.session.cus.type == "admin"){
+                return res.render("adminIndex.ejs", { success: true, message: "You are allready logged in!" });
+            }else{
+                return res.render("index.ejs", { success: true, message: "You are allready logged in!" });
+            }
         } else {
-            return res.render("index.ejs", { success: false, message: "No user!!" });
-        }
+            const cus = await Customer.findOne({ email: email, password: password });
+            if (cus) {
+                req.session.cus = cus;
+                const rooms = await Room.find();
+                if(cus.type == "admin"){
+                    return res.render("adminIndex.ejs");
+                }else{
+                    return res.render("room.ejs", { success: true, message: "Logged in Successfully!!", data: rooms });
+                }
+            } else {
+                return res.render("index.ejs", { success: false, message: "No user!!" });
+            }
         }
     } catch (error) {
         return res.render("index.ejs", { success: false, message: `Error : ${error}` });
@@ -72,4 +78,15 @@ export const logoutCustomer = (req, res) => {
         }
         res.redirect("/");
     });
+};
+
+export const loadAdminPage = (req,res)=>{
+    if(!req.session.cus){
+        return res.render("index.ejs",{success:false,message:"You must log in first"});
+    }
+    if(req.session.cus.type == "admin"){
+        return res.render("adminIndex.ejs");
+    }else{
+        return res.render("index.ejs",{success:false,message:"You must log in first"});
+    }
 };
