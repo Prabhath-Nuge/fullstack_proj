@@ -93,3 +93,38 @@ export const getChatPage = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 };
+
+export const editCustomer = async(req,res)=>{
+    const id = req.session.cus._id;
+    if(!id){
+        return res.status(400).render("index.js",{success:false, message:"Log in first!"});
+    }
+
+    const cusDets = await Customer.findById(id);
+
+    res.status(200).render("editcustomer.ejs",{data:cusDets});
+};
+
+export const postEditCustomer = async (req,res)=>{
+    const {id,name,email,pnumber,address,dob,password,} = req.body;
+    
+    try {
+        if(!id||!name||!email||!pnumber||!address||!dob||!password){
+            return res.status(400).render("index.ejs",{success:false,message:"Must fill all required fields!"});
+        }
+    
+        const newCus = await Customer.findByIdAndUpdate(id,{
+            name,email,pnumber,address,dob,password
+        },{new:true});
+    
+        if(newCus){
+            req.session.cus = newCus;
+            return res.status(200).render("index.ejs",{success:true,message:"Updated Successfully"});
+            
+        }else{
+            return res.status(400).render("index.ejs",{success:true,message:"Something Went Wrong!"});
+        }
+    } catch (error) {
+        return res.status(500).render("index.ejs",{success:false,message:"Server Error:"+error});
+    }
+};

@@ -52,7 +52,7 @@ export const Socket = (io)=>
             const senderName = await Customer.findById(senderId);
             socket.to(room).emit(emitEvent, {
                 
-                senderName: `Admin(${senderName.name})`, // Replace with logic to fetch the actual sender's name
+                senderName:senderName.name, // Replace with logic to fetch the actual sender's name
                 message,
             });
         } catch (err) {

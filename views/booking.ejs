@@ -4,7 +4,7 @@
 
         <div class="container availiability-form">
             <div class="text-center">
-                <img src="/<%= data.room.image %>" class="img-fluid" style="height: auto; width: 1300px;">
+                <img src="<%= data.room.image %>" class="img-fluid" style="height: auto; width: 1300px;">
             </div>
             <div class="col-lg-12 bg-white shadow p-4 rounded">
                 <form method="post" action="/book/confirms">
@@ -25,7 +25,7 @@
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="<%= service._id %>" id="<%= service._id %>" name="selectedServices">
 
-                            <%= service.name %> <img src="/<%= service.image %>" width="30px"
+                            <%= service.name %> <img src="<%= service.image %>" width="30px"
                                     alt="<%= service.name %>"><br>
                                 <%= service.price %>/= <br>
                         </div>

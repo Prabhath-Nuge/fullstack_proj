@@ -8,17 +8,17 @@
         <div class="container my-4">
             <div class="row justify-content-center">
                 <div class="col-auto">
-                    <a href="/book/ongoingbooking" class="btn btn-outline-primary shadow-none mx-2">
+                    <a href="/admin/ongoingbook" class="btn btn-outline-primary shadow-none mx-2">
                         Ongoing Bookings
                     </a>
                 </div>
                 <div class="col-auto">
-                    <a href="/book/canceledbooking" class="btn btn-outline-danger shadow-none mx-2">
+                    <a href="/admin/canceledbook" class="btn btn-outline-danger shadow-none mx-2">
                         Canceled Bookings
                     </a>
                 </div>
                 <div class="col-auto">
-                    <a href="/book/completedbooking" class="btn btn-outline-success shadow-none mx-2">
+                    <a href="/admin/completedbook" class="btn btn-outline-success shadow-none mx-2">
                         Completed Bookings
                     </a>
                 </div>
@@ -37,19 +37,20 @@
                         </div>
                         <div class="col-md-6 px-lg-4 px-md-3 px-0">
                             <h5 class="mb-2">Room Details</h5>
+                            <p class="mb-1"><strong>Customer:</strong> <%= book.cusId.name %></p>
                             <p class="mb-1"><strong>Room Type:</strong> <%= book.roomId.roomType %></p>
                             <p class="mb-1"><strong>Bed Type:</strong> <%= book.roomId.bedType %></p>
                             <p class="mb-1"><strong>Status:</strong> <%= book.status %></p>
                             <p class="mb-1"><strong>Price:</strong> NaN</p>
                         </div>
-                        <div class="col-md-3 text-md-end text-center mt-md-0 mt-3">
-                            <a href="/book/edit/<%= book._id %>" class="btn btn-sm btn-outline-primary shadow-none mx-1">
+                        <!-- <div class="col-md-3 text-md-end text-center mt-md-0 mt-3">
+                            <a href="#" class="btn btn-sm btn-outline-primary shadow-none mx-1">
                                 Edit Booking
                             </a>
-                            <a href="/book/cancel/<%= book._id %>" class="btn btn-sm btn-outline-danger shadow-none mx-1">
+                            <a href="#" class="btn btn-sm btn-outline-danger shadow-none mx-1">
                                 Cancel Booking
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
