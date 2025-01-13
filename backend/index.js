@@ -44,15 +44,7 @@ app.use("/book", bookingRouter);
 app.use("/", publicRouter);
 app.use("/admin", adminRouter);
 
-
 Socket(io);
-
-
-
-
-
-
-
 
 server.listen(port, () => {
     connectDB();

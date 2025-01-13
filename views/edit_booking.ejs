@@ -25,7 +25,7 @@
                         <% data.services.forEach(service => { %>
                             <div class="mb-2">
                                 <%= service.name || 'Service' %> 
-                                <img src="/<%= service.image || 'default-service.jpg' %>" width="30px" alt="<%= service.name || 'Service Image' %>">
+                                <img src="<%= service.image || 'default-service.jpg' %>" width="30px" alt="<%= service.name || 'Service Image' %>">
                                 (<%= service.price || '0' %> /=)
                             </div>
                         <% }) %>
