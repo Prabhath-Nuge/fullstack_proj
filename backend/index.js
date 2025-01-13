@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import session from "express-session";
 import { sessionMiddleware } from "./middelware/sessionMiddleware.js";
+import { createServer } from "http";
+import { Server } from "socket.io";
 
 import customerRoutes from "./routes/customer.router.js";
 import roomRouter from "./routes/room.router.js";
@@ -10,18 +12,21 @@ import serviceRouter from "./routes/service.router.js";
 import publicRouter from "./routes/public.router.js";
 import bookingRouter from "./routes/booking.router.js";
 import adminRouter from "./routes/admin.router.js";
+import { Socket } from "./socket.io.js";
 
 dotenv.config();
 
 const port = process.env.PORT || 3000;
 const app = express();
+const server = createServer(app);
+const io = new Server(server, {});
 
 app.use(session({
-    secret: 'secret-key', // Replace with a secure key
-    resave: false,             // Prevent resaving session if not modified
-    saveUninitialized: false,  // Don't save uninitialized sessions
+    secret: 'secret-key',
+    resave: false,
+    saveUninitialized: false,
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24, // 1 day (in milliseconds)
+        maxAge: 1000 * 60 * 60 * 24,
     },
 })
 );
@@ -40,8 +45,16 @@ app.use("/", publicRouter);
 app.use("/admin", adminRouter);
 
 
+Socket(io);
 
-app.listen(port, ()=>{
+
+
+
+
+
+
+
+server.listen(port, () => {
     connectDB();
     console.log(`connected port ${port}`);
 });

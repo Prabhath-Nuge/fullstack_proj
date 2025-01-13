@@ -1,0 +1,83 @@
+<%- include("header.ejs") %>
+
+<body class="bg-light" style="font-family: 'Poppins', sans-serif;">
+  <!-- Chat Container -->
+  <div class="container my-5">
+    <div class="card shadow-lg">
+      <!-- Chat Header -->
+      <div class="card-header bg-dark text-white text-center fs-4">
+        Chat App
+      </div>
+
+      <!-- Chat Box -->
+      <div id="chat-box" class="card-body" style="height: 400px; overflow-y: auto; background-color: #f8f9fa;">
+        <!-- Preloaded Messages -->
+        <% data.forEach(chat => { %>
+          <% chat.messages.forEach(message => { %>
+            <div class="mb-2">
+              <strong><%= message.senderId ? message.senderId.name : "Unknown Sender" %>:</strong>
+              <%= message.text %>
+            </div>
+          <% }) %>
+        <% }) %>
+      </div>
+
+      <!-- Chat Footer -->
+      <div class="card-footer d-flex align-items-center">
+        <input type="text" id="message" placeholder="Type a message" class="form-control me-2">
+        <button id="send-btn" class="btn btn-primary">
+          <i class="bi bi-send-fill"></i> Send
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Socket.IO -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    // Elements
+    const senderInput = "<%= user._id %>";
+    const messageInput = document.getElementById('message');
+    const sendBtn = document.getElementById('send-btn');
+    const chatBox = document.getElementById('chat-box');
+    const room = "<%=user._id%>";
+
+    // Scroll to the bottom initially (to show the latest messages from the database)
+    chatBox.scrollTop = chatBox.scrollHeight;
+    socket.emit('joinRoom',room);
+    // Handle sending messages
+    sendBtn.addEventListener('click', () => {
+      const sender = senderInput;
+      const message = messageInput.value.trim();
+      
+      if (sender && message) {
+        // Emit message to server
+        socket.emit('sendMessage', { sender, message,room});
+
+        // Display message in chat box
+        addMessageToChatBox({ senderName: "<%= user.name %>", message });
+
+        // Clear input field
+        messageInput.value = '';
+      }
+    });
+
+    // Listen for incoming messages
+    socket.on('receiveMessage', (data) => {
+      addMessageToChatBox(data);
+    });
+
+    // Function to add a new message to the chat box
+    function addMessageToChatBox(data) {
+      const newMessage = document.createElement('div');
+      newMessage.classList.add('mb-2');
+      newMessage.innerHTML = `<strong>${data.senderName}:</strong> ${data.message}`;
+      chatBox.appendChild(newMessage);
+
+      // Scroll to the bottom
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+  <%- include("footer.ejs") %>

@@ -1,8 +1,9 @@
 import Customer from "../models/customer.model.js";
+import Message from "../models/message.model.js";
 import Room from "../models/room.model.js";
 
 export const loadIndexPage = (req, res) => {
-    res.render("index.ejs", { name: "bitch" });
+    res.render("index.ejs");
 };
 
 export const logingCustomer = async (req, res) => {
@@ -80,13 +81,15 @@ export const logoutCustomer = (req, res) => {
     });
 };
 
-export const loadAdminPage = (req,res)=>{
-    if(!req.session.cus){
-        return res.render("index.ejs",{success:false,message:"You must log in first"});
-    }
-    if(req.session.cus.type == "admin"){
-        return res.render("adminIndex.ejs");
-    }else{
-        return res.render("index.ejs",{success:false,message:"You must log in first"});
+export const getChatPage = async (req, res) => {
+    try {
+        const messagesData = await Message.find({ sender: req.session.cus._id })
+            .populate("messages.senderId")
+            .sort({ "messages.timestamp": 1 });
+
+        res.render("chat.ejs", { data: messagesData });
+    } catch (error) {
+        console.error("Error fetching chat messages:", error);
+        res.status(500).send("Internal Server Error");
     }
 };

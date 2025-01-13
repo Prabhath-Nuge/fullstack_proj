@@ -29,7 +29,7 @@
             }
         }
     </style>
-    
+
 
 </head>
 
@@ -201,14 +201,28 @@
                             <div class="mb-3">
                                 <label class="form-label">Logged in as : <%=user.email%></label>
                             </div>
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <a href="/logout"><button class="btn btn-dark shadow-none">Logout</button></a>
-                            </div>
+                            <% if(isLoggedIn && user.type=="customer" ){ %>
+                                <a href="/chat">
+                                    <div class="mb-1">
+                                        <label class="form-label">Chat With Us</label>
+                                    </div>
+                                </a>
+                                <%}else if(isLoggedIn && user.type=="admin" ){%>
+                                    <a href="/admin/index">
+                                        <div class="mb-1">
+                                            <label class="form-label">Admin Panel</label>
+                                        </div>
+                                    </a>
+                                    <%} %>
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
+                                            <a href="/logout"><button
+                                                    class="btn btn-dark shadow-none">Logout</button></a>
+                                        </div>
                         </div>
                     </div>
                 </div>
             </div>
             <% } %>
-            <div class="container mt-4">
-                <div id="message-box" class="alert d-none" role="alert"></div>
-            </div>
+                <div class="container mt-4">
+                    <div id="message-box" class="alert d-none" role="alert"></div>
+                </div>
