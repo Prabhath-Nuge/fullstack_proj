@@ -1,0 +1,25 @@
+<%- include('header.ejs') %>
+<body class="bg-light" style="font-family: 'Poppins', sans-serif;">
+    <div class="container my-5">
+        <div class="card shadow-lg">
+            <div class="card-header bg-dark text-white text-center fs-4">
+                Admin Chat
+            </div>
+
+            <div class="card-body">
+                <ul class="list-group">
+                    <% messages.forEach(chat => { %>
+                        <a href="<%= chat.messageThreadId %>"
+                        <li class="list-group-item">
+                            <h4><strong><%= chat.senderName %></strong></h4>  <!-- Sender's name -->
+                           
+                            <strong><%= chat.lastMessageSenderName %></strong>: <%= chat.lastMessageText %></p> <!-- Last message text -->
+                            <small>Sent at: <%= new Date(chat.timestamp).toLocaleString() %></small>  <!-- Date and time -->
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<%- include('footer.ejs') %>
