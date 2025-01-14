@@ -44,16 +44,17 @@
                             <p class="mb-1"><strong>Price:</strong> NaN</p>
                         </div>
                         <div class="col-md-3 text-md-end text-center mt-md-0 mt-3">
-                            <a href="/book/edit/<%= book._id %>" class="btn btn-sm btn-outline-primary shadow-none mx-1">
+                            <a href="/admin/editbook/<%= book._id %>" class="btn btn-sm btn-outline-primary shadow-none mx-1">
                                 Edit Booking
                             </a>
-                            <a href="/book/cancel/<%= book._id %>" class="btn btn-sm btn-outline-danger shadow-none mx-1">
+                            <a href="/admin/cancelbook/<%= book._id %>" class="btn btn-sm btn-outline-danger shadow-none mx-1">
                                 Cancel Booking
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
+        
         </div>
     </div>
     <%})%>

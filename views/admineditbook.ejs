@@ -5,7 +5,7 @@
             <img src="<%= data.roomId?.image || 'default.jpg' %>" class="img-fluid rounded" style="height: auto; width: 100%;" alt="Room Image">
         </div>
         <div class="col-lg-12 bg-white shadow p-4 rounded">
-            <form method="post" action="/book/edit/<%= data._id %>">
+            <form method="" action="">
                 <div class="mb-3">
                     <label class="form-label" style="font-weight: 500;">Room Type:</label>
                     <span><%= data.roomId?.roomType || 'N/A' %></span>
@@ -32,7 +32,7 @@
                     <% } else { %>
                         <p>No additional services available.</p>
                     <% } %>
-                    <b>You can add more services or remove with the help of front desk</b>
+                    <a href="/admin/addservicetobook/<%=data._id%>"><b>Add more services from here</b></a>
                 </div>
                 <hr>
                 <div class="mb-3">
@@ -45,10 +45,12 @@
                 </div>
                 <input type="hidden" name="roomId" value="<%= data.roomId?._id || '' %>">
                 <div>
-                    <button type="submit" class="btn text-white shadow-none" style="background-color: #0ba847;">Update Booking</button>
+                    <!-- <button type="submit" class="btn text-white shadow-none" style="background-color: #0ba847;">Update Booking</button> -->
                 </div>
             </form>
+            
         </div>
+        <a href="/admin/completebook/<%=data._id%>"><button type="btn" class="btn text-white shadow-none" style="background-color: #0ba847;">Complete the Booking</button></a>
     </div>
 </div>
 <%- include("footer.ejs") %>

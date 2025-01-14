@@ -370,9 +370,74 @@ export const adminReplyGuestEmail = async (req, res) => {
 
         await sendEmail({ to: email, subject: emailsubject, text: text });
 
-        res.status(200).render("index.ejs",{success:true, message:"Email send successfully"});
+        res.status(200).render("index.ejs", { success: true, message: "Email send successfully" });
     } catch (error) {
-        res.status(500).render("index.ejs",{success:false,message:"Error :"+error});
+        res.status(500).render("index.ejs", { success: false, message: "Error :" + error });
     }
 
 };
+
+export const adminEditBookPage = async (req, res) => {
+    if (!req.session.cus || !req.session.cus._id) {
+        return res.status(400).render("index.ejs", { success: false, message: "Please log in first!" });
+    }
+    else if (!(req.session.cus.type == "admin")) {
+        return res.status(400).render("index.ejs", { success: false, message: "You are not an Admin" });
+    }
+
+    const id = req.params.id;
+    const book = await Booking.findById(id).populate("roomId").populate("services").exec();
+
+    res.status(200).render("admineditbook.ejs", { data: book });
+};
+
+export const addServiceToBook = async (req, res) => {
+    if (!req.session.cus || !req.session.cus._id) {
+        return res.status(400).render("index.ejs", { success: false, message: "Please log in first!" });
+    }
+    else if (!(req.session.cus.type == "admin")) {
+        return res.status(400).render("index.ejs", { success: false, message: "You are not an Admin" });
+    }
+
+    const id = req.params.id;
+    const services = await Service.find();
+    res.status(200).render("adminaddservicetobook.ejs", { data: services, bookId: id });
+};
+
+export const postAddServiceToBook = async (req, res) => {
+    if (!req.session.cus || !req.session.cus._id) {
+        return res.status(400).render("index.ejs", { success: false, message: "Please log in first!" });
+    }
+    else if (!(req.session.cus.type == "admin")) {
+        return res.status(400).render("index.ejs", { success: false, message: "You are not an Admin" });
+    }
+
+    try {
+        const { bookid, selectedServices } = req.body;
+
+        const services = Array.isArray(selectedServices) ? selectedServices : [selectedServices];
+
+        console.log('Booking ID:', bookid);
+        console.log('Selected Services:', services);
+
+        const addServices = await Booking.findByIdAndUpdate(bookid, { $addToSet: { services: { $each: services } } }, { new: true });
+
+        res.status(200).render("adminIndex.ejs", { success: true, message: "Service added Successfully" });
+    } catch (error) {
+        res.status(400).render("adminIndex.ejs", { success: true, message: "Error:" + error });
+    }
+};
+
+export const adminCompleteBook = async (req,res)=>{
+    if (!req.session.cus || !req.session.cus._id) {
+        return res.status(400).render("index.ejs", { success: false, message: "Please log in first!" });
+    }
+    else if (!(req.session.cus.type == "admin")) {
+        return res.status(400).render("index.ejs", { success: false, message: "You are not an Admin" });
+    }
+
+    const id = req.params.id;
+    const updateBook = await Booking.findByIdAndUpdate(id,{status:"completed"});
+
+    res.status(200).render("adminIndex.ejs", { success: true, message: "Booking marked as completed!!" });
+}
