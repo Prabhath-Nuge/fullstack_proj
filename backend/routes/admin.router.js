@@ -1,5 +1,5 @@
 import express from "express";
-import { adminAddService, adminChatPage, adminDeleteService, adminDeleteUser, adminGetCanceledBookings, adminGetCompletedBookings, adminGetGuestEmailpage, adminGetGuestEmails, adminGetOnBookings, adminGetServiceEdit, adminGetServices, adminGetUser, adminGetUsers, adminPostAddService, adminReplyGuestEmail, adminUpdateCus, adminUpdateService, getChats, loadAdminPage } from "../controllers/admin.controller.js";
+import { addServiceToBook, adminAddService, adminChatPage, adminCompleteBook, adminDeleteService, adminDeleteUser, adminEditBookPage, adminGetCanceledBookings, adminGetCompletedBookings, adminGetGuestEmailpage, adminGetGuestEmails, adminGetOnBookings, adminGetServiceEdit, adminGetServices, adminGetUser, adminGetUsers, adminPostAddService, adminReplyGuestEmail, adminUpdateCus, adminUpdateService, getChats, loadAdminPage, postAddServiceToBook } from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
@@ -12,6 +12,10 @@ router.get("/chat", getChats);
 router.get("/ongoingbook", adminGetOnBookings);
 router.get("/canceledbook", adminGetCanceledBookings);
 router.get("/completedbook", adminGetCompletedBookings);
+router.get("/addservicetobook/:id", addServiceToBook);
+router.post("/addservicetobook", postAddServiceToBook);
+router.get("/editbook/:id", adminEditBookPage);
+router.get("/completebook/:id", adminCompleteBook);
 router.get("/services", adminGetServices);
 router.get("/services/add", adminAddService);
 router.post("/services/add", adminPostAddService);

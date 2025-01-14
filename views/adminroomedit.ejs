@@ -1,0 +1,67 @@
+<%- include("header.ejs") %>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="bg-white rounded shadow p-4 border-top border-4 border-primary">
+                <h4 class="text-center mb-4">Edit Service</h4>
+                <form action="/admins/rooms/edit" method="POST">
+                    <input type="hidden" name="id" value="<%= data._id %>">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Room type</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="name" 
+                            name="roomType" 
+                            value="<%= data.roomType %>" 
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Bed type</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="name" 
+                            name="bedType" 
+                            value="<%= data.bedType %>" 
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price (Rs.)</label>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            id="price" 
+                            name="price" 
+                            value="<%= data.price %>" 
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Room Image</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="image" 
+                            name="image" 
+                            value="<%= data.image %>"
+                            required>
+                        <small class="form-text text-muted">add an image url</small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-success w-50">
+                            <i class="bi bi-save"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%- include("footer.ejs") %>

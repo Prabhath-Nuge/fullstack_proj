@@ -1,0 +1,29 @@
+<%- include("header.ejs") %>
+
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Select Additional Services</h3>
+
+    <form action="/admin/addservicetobook" method="post" class="p-4 bg-light rounded shadow">
+        <input name="bookid" type="hidden" value="<%= bookId %>">
+
+        <% data.forEach((service) => { %>
+        <div class="form-check mb-3 d-flex align-items-center">
+            <input class="form-check-input me-3" type="checkbox" value="<%= service._id %>" id="<%= service._id %>"
+                name="selectedServices">
+            <label class="form-check-label d-flex align-items-center" for="<%= service._id %>">
+                <img src="<%= service.image %>" class="me-3 rounded" width="40px" alt="<%= service.name %>">
+                <div>
+                    <span class="fw-bold"><%= service.name %></span><br>
+                    <span class="text-muted">Price: <%= service.price %> /=</span>
+                </div>
+            </label>
+        </div>
+        <% }) %>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">Add Selected Services</button>
+        </div>
+    </form>
+</div>
+
+<%- include("footer.ejs") %>

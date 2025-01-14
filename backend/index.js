@@ -5,6 +5,7 @@ import session from "express-session";
 import { sessionMiddleware } from "./middelware/sessionMiddleware.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import { Socket } from "./socket.io.js";
 
 import customerRoutes from "./routes/customer.router.js";
 import roomRouter from "./routes/room.router.js";
@@ -12,7 +13,7 @@ import serviceRouter from "./routes/service.router.js";
 import publicRouter from "./routes/public.router.js";
 import bookingRouter from "./routes/booking.router.js";
 import adminRouter from "./routes/admin.router.js";
-import { Socket } from "./socket.io.js";
+import adminsRouter from "./routes/admins.router.js";
 
 dotenv.config();
 
@@ -43,6 +44,7 @@ app.use("/services", serviceRouter);
 app.use("/book", bookingRouter);
 app.use("/", publicRouter);
 app.use("/admin", adminRouter);
+app.use("/admins", adminsRouter);
 
 Socket(io);
 

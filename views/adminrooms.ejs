@@ -1,0 +1,38 @@
+<%- include("header.ejs") %>
+
+<div class="my-5 px-4">
+    <h2 class="text-center fw-bold h-font">Our Rooms</h2>
+    <div class="h-line bg-dark mx-auto" style="width: 150px; height: 3px;"></div>
+</div>
+
+<div class="container">
+    <div class="text-end mb-4">
+        <a href="/admins/rooms/add" class="btn btn-success shadow-sm">
+            <i class="bi bi-plus-circle me-1"></i> Add New Room
+        </a>
+    </div>
+
+    <div class="row">
+        <% data.forEach((room) => { %>
+            <div class="col-lg-4 col-md-6 mb-5">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="<%= room.image %>" class="card-img-top rounded-top" alt="<%= room.name %>">
+                    <div class="card-body">
+                        <h5 class="card-title text-dark fw-bold"><%= room.roomType %> - <%= room.bedType %></h5>
+                        <p class="card-text text-muted mb-3">Price: Rs. <%= room.price %> /=</p>
+                        <div class="d-flex justify-content-between">
+                            <a href="/admins/rooms/edit/<%= room._id %>" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a href="/admins/rooms/delete/<%= room._id %>" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<%- include("footer.ejs") %>
